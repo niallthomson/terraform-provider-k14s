@@ -13,7 +13,7 @@ import (
 func datasourceYtt() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"yaml": {
+			"config_yaml": {
 				Type:        schema.TypeString,
 				Description: "Configuration yaml",
 				Optional:    true,
@@ -46,7 +46,7 @@ func datasourceYtt() *schema.Resource {
 }
 
 func resourceYttRead(d *schema.ResourceData, meta interface{}) error {
-	yaml := d.Get("yaml").(string)
+	yaml := d.Get("config_yaml").(string)
 
 	var valuesList []string
 

@@ -28,7 +28,7 @@ func resourceApp() *schema.Resource {
 				Required:    true,
 				ForceNew:    true,
 			},
-			"yaml": {
+			"config_yaml": {
 				Type:        schema.TypeString,
 				Description: "The config yaml to deploy",
 				Optional:    true,
@@ -72,7 +72,7 @@ func resourceAppDeploy(d *schema.ResourceData, meta interface{}) error {
 
 	name := d.Get("name").(string)
 	namespace := d.Get("namespace").(string)
-	yaml := d.Get("yaml").(string)
+	yaml := d.Get("config_yaml").(string)
 
 	var files []string
 

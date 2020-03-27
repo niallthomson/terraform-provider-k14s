@@ -33,9 +33,7 @@ func (r *DeleteRequest) Execute() error {
 
 	logger := util.NewStdOutLogger()
 
-	ui := ui.NewConfUI(ui.NewNoopLogger())
-	ui.EnableNonInteractive()
-
+	ui := &util.LoggingUI{}
 	defer ui.Flush()
 
 	depsFactory := util.NewDepsFactoryImpl(r.configFactory)
