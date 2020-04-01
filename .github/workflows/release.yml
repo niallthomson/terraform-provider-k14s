@@ -26,6 +26,8 @@ jobs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
     - name: Build
+      env:
+        VERSION: "${{ steps.get_version.outputs.VERSION }}"
       run: |
         hack/build-binaries.sh
         
