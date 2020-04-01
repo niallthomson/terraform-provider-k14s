@@ -38,11 +38,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        body: "Test"
+        body: ""
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
-        draft: true
-        prerelease: true
+        draft: false
+        prerelease: false
         
     - name: Upload Release Asset
       id: upload-release-asset 
