@@ -1,4 +1,5 @@
 .vscode
 terraform-provider-k14s
+terraform-provider-k14sx
 test
 tmp

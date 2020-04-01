@@ -2,7 +2,7 @@
 
 set -e
 
-go build .
+hack/build.sh
 
 mkdir -p ~/.terraform.d/plugins
 
