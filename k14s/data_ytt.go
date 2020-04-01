@@ -136,7 +136,6 @@ func resourceYttRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	stdout := string(resultBytes)
-
 	h := sha256.New()
 
 	d.SetId(string(h.Sum(resultBytes)))

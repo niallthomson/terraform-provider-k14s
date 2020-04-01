@@ -98,11 +98,11 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"k14s_kapp": resourceApp(),
+			"k14sx_kapp": resourceApp(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"k14s_ytt": datasourceYtt(),
+			"k14sx_ytt": datasourceYtt(),
 		},
 
 		ConfigureFunc: providerConfigure,
