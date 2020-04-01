@@ -14,9 +14,12 @@ func datasourceYtt() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"config_yaml": {
-				Type:        schema.TypeString,
-				Description: "Configuration yaml",
+				Type:        schema.TypeList,
+				Description: "List of inline configuration yaml",
 				Optional:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
 			},
 			"files": {
 				Type:        schema.TypeList,
@@ -34,6 +37,11 @@ func datasourceYtt() *schema.Resource {
 					Type: schema.TypeString,
 				},
 			},
+			"ignore_unknown_comments": {
+				Type:        schema.TypeBool,
+				Description: "Ignore unknown comments",
+				Optional:    true,
+			},
 			"result": {
 				Type:        schema.TypeString,
 				Description: "Rendered yaml",
@@ -46,8 +54,6 @@ func datasourceYtt() *schema.Resource {
 }
 
 func resourceYttRead(d *schema.ResourceData, meta interface{}) error {
-	yaml := d.Get("config_yaml").(string)
-
 	var valuesList []string
 
 	if l, ok := d.GetOk("values"); ok {
@@ -73,12 +79,22 @@ func resourceYttRead(d *schema.ResourceData, meta interface{}) error {
 		AllowedDstPaths: nil,
 	})
 
-	inlineFile, err := filespkg.NewFileFromSource(filespkg.NewCachedSource(filespkg.NewBytesSource("inline.yml", []byte(yaml))))
-	if err != nil {
-		return err
+	var inlineFiles []*filespkg.File
+
+	configParam := d.Get("config_yaml").([]interface{})
+	if len(configParam) > 0 {
+
+		for _, configParam := range configParam {
+			inlineFile, err := filespkg.NewFileFromSource(filespkg.NewCachedSource(filespkg.NewBytesSource("inline.yml", []byte(configParam.(string)))))
+			if err != nil {
+				return err
+			}
+
+			inlineFiles = append(inlineFiles, inlineFile)
+		}
 	}
 
-	files = filespkg.NewSortedFiles(append(files, inlineFile))
+	files = filespkg.NewSortedFiles(append(files, inlineFiles...))
 
 	if err != nil {
 		return err

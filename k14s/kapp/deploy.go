@@ -111,8 +111,6 @@ func (r *DeployRequest) Execute() error {
 	}
 
 	if hasNoChanges {
-		//log.Fatalf("No changes!")
-
 		return nil
 	}
 

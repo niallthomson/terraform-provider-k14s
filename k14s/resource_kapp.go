@@ -16,7 +16,7 @@ import (
 func resourceApp() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"name": {
+			"app": {
 				Type:        schema.TypeString,
 				Description: "The name of the app",
 				Required:    true,
@@ -70,7 +70,7 @@ func resourceAppUpdate(d *schema.ResourceData, meta interface{}) error {
 func resourceAppDeploy(d *schema.ResourceData, meta interface{}) error {
 	c := meta.(*Config)
 
-	name := d.Get("name").(string)
+	name := d.Get("app").(string)
 	namespace := d.Get("namespace").(string)
 	yaml := d.Get("config_yaml").(string)
 
@@ -94,7 +94,7 @@ func resourceAppDeploy(d *schema.ResourceData, meta interface{}) error {
 func resourceAppDelete(d *schema.ResourceData, meta interface{}) error {
 	c := meta.(*Config)
 
-	name := d.Get("name").(string)
+	name := d.Get("app").(string)
 	namespace := d.Get("namespace").(string)
 
 	err := kapp.NewDeleteRequest(c.ConfigFactory, name, namespace).Execute()
@@ -114,7 +114,7 @@ func resourceAppExists(d *schema.ResourceData, meta interface{}) (bool, error) {
 
 	c := meta.(*Config)
 
-	name := d.Get("name").(string)
+	name := d.Get("app").(string)
 
 	failingAPIServicesPolicy := &app.FailingAPIServicesPolicy{}
 

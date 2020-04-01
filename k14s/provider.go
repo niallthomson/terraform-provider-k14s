@@ -98,7 +98,7 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"k14s_app": resourceApp(),
+			"k14s_kapp": resourceApp(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
