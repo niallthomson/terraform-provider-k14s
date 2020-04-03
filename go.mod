@@ -10,11 +10,12 @@ require (
 	github.com/cppforlife/go-cli-ui v0.0.0-20200108172221-38b12a2f8675
 	github.com/google/uuid v1.1.1
 	github.com/hashicorp/hcl/v2 v2.3.0 // indirect
-	github.com/hashicorp/terraform v0.12.19
 	github.com/hashicorp/terraform-config-inspect v0.0.0-20191212124732-c6ae6269b9d7 // indirect
 	github.com/hashicorp/terraform-plugin-sdk v1.8.0
 	github.com/k14s/kapp v0.22.0
-	github.com/k14s/terraform-provider-k14s v0.4.0
+	github.com/k14s/terraform-provider-k14s v0.4.0 // indirect
 	github.com/k14s/ytt v0.26.0
+	github.com/mitchellh/go-homedir v1.1.0
+	k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
 	k8s.io/client-go v8.0.0+incompatible
 )

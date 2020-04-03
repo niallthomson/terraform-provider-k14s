@@ -6,6 +6,8 @@ This implementation aims to improve on several aspects of the official version:
 - No requirement for the binaries locally
 - Works with flows where the target Kubernetes cluster is built during TF execution
 
+*WARNING:* This code base is undergoing active development and breaking changes should be expected
+
 TODO list
 - Handle more complex kubeconfig provider configuration
 - Handle kapp configuration drift
@@ -30,11 +32,7 @@ The following simple example creates an Nginx deployment manifest with a patched
 
 ```
 provider "k14sx" {
-  kapp {
-    kubeconfig {
-      from_env = true
-    }
-  }
+
 }
 
 data "k14sx_ytt" "content" {

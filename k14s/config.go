@@ -6,5 +6,5 @@ import (
 )
 
 type Config struct {
-	ConfigFactory cmdcore.ConfigFactory
+	DepsFactory cmdcore.DepsFactory
 }

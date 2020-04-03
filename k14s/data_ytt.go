@@ -1,8 +1,7 @@
 package k14s
 
 import (
-	"crypto/sha256"
-
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	cmdcore "github.com/k14s/ytt/pkg/cmd/core"
 	"github.com/k14s/ytt/pkg/cmd/template"
@@ -136,9 +135,9 @@ func resourceYttRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	stdout := string(resultBytes)
-	h := sha256.New()
+	id := uuid.New().String()
 
-	d.SetId(string(h.Sum(resultBytes)))
+	d.SetId(id)
 	d.Set("result", stdout)
 
 	return nil

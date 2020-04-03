@@ -83,7 +83,7 @@ func resourceAppDeploy(d *schema.ResourceData, meta interface{}) error {
 		}
 	}
 
-	err := kapp.NewDeployRequest(c.ConfigFactory, name, namespace, yaml, files).Execute()
+	err := kapp.NewDeployRequest(c.DepsFactory, name, namespace, yaml, files).Execute()
 	if err != nil {
 		return err
 	}
@@ -97,7 +97,7 @@ func resourceAppDelete(d *schema.ResourceData, meta interface{}) error {
 	name := d.Get("app").(string)
 	namespace := d.Get("namespace").(string)
 
-	err := kapp.NewDeleteRequest(c.ConfigFactory, name, namespace).Execute()
+	err := kapp.NewDeleteRequest(c.DepsFactory, name, namespace).Execute()
 	if err != nil {
 		return err
 	}
@@ -124,9 +124,7 @@ func resourceAppExists(d *schema.ResourceData, meta interface{}) (bool, error) {
 
 	defer ui.Flush()
 
-	depsFactory := util.NewDepsFactoryImpl(c.ConfigFactory)
-
-	app, supportObjs, err := app.AppFactory(depsFactory, app.AppFlags{
+	app, supportObjs, err := app.AppFactory(c.DepsFactory, app.AppFlags{
 		Name: name,
 		NamespaceFlags: cmdcore.NamespaceFlags{
 			Name: "default",

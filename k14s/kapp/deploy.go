@@ -19,20 +19,20 @@ import (
 )
 
 type DeployRequest struct {
-	configFactory cmdcore.ConfigFactory
-	name          string
-	namespace     string
-	yaml          string
-	files         []string
+	depsFactory cmdcore.DepsFactory
+	name        string
+	namespace   string
+	yaml        string
+	files       []string
 }
 
-func NewDeployRequest(configFactory cmdcore.ConfigFactory, name string, namespace string, yaml string, files []string) *DeployRequest {
+func NewDeployRequest(depsFactory cmdcore.DepsFactory, name string, namespace string, yaml string, files []string) *DeployRequest {
 	return &DeployRequest{
-		configFactory: configFactory,
-		name:          name,
-		namespace:     namespace,
-		yaml:          yaml,
-		files:         files,
+		depsFactory: depsFactory,
+		name:        name,
+		namespace:   namespace,
+		yaml:        yaml,
+		files:       files,
 	}
 }
 
@@ -44,9 +44,7 @@ func (r *DeployRequest) Execute() error {
 	ui := &util.LoggingUI{}
 	defer ui.Flush()
 
-	depsFactory := util.NewDepsFactoryImpl(r.configFactory)
-
-	app, supportObjs, err := app.AppFactory(depsFactory, app.AppFlags{
+	app, supportObjs, err := app.AppFactory(r.depsFactory, app.AppFlags{
 		Name: r.name,
 		NamespaceFlags: cmdcore.NamespaceFlags{
 			Name: r.namespace,
