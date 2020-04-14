@@ -115,6 +115,7 @@ func resourceAppExists(d *schema.ResourceData, meta interface{}) (bool, error) {
 	c := meta.(*Config)
 
 	name := d.Get("app").(string)
+	namespace := d.Get("namespace").(string)
 
 	failingAPIServicesPolicy := &app.FailingAPIServicesPolicy{}
 
@@ -127,7 +128,7 @@ func resourceAppExists(d *schema.ResourceData, meta interface{}) (bool, error) {
 	app, supportObjs, err := app.AppFactory(c.DepsFactory, app.AppFlags{
 		Name: name,
 		NamespaceFlags: cmdcore.NamespaceFlags{
-			Name: "default",
+			Name: namespace,
 		},
 	}, app.ResourceTypesFlags{}, logger)
 	if err != nil {
